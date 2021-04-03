@@ -1,27 +1,21 @@
 import React from 'react'
-import { Text, StyleSheet } from 'react-native'
-import AppLoading from 'expo-app-loading'
-import { useFonts } from 'expo-font'
+import { Text } from 'react-native'
 
-const CustomText = ({children, style}) => {
-    
-    // Load custom font
-    const [fontsLoaded] = useFonts({
-        'Raleway': require('../../assets/fonts/Raleway-Regular.ttf')
-    })
+const CustomText = ({children, style, underline, ...props}) => {
 
-    if(!fontsLoaded) {
-        return <AppLoading />
-    }else{
-        const fontStyles = {
-            fontFamily: 'Raleway'
-        }
-        return (
-            <Text style={style ? [fontStyles, style] : fontStyles}>{children}</Text>
-        )
+    const styles = [{ fontFamily: 'Raleway' }]
+
+    if(style) {
+        styles.push(style)
     }
-}
+    if(underline) {
+        styles.push({ textDecorationLine: 'underline' })
+    }
 
-const styles = StyleSheet.create({})
+    return (
+        <Text style={styles} {...props}>{children}</Text>
+    )
+    
+}
 
 export default CustomText
