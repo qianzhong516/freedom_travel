@@ -6,7 +6,7 @@ import Navigation from './src/components/Navigation'
 export default function App() {
   return (
     <NavigationContainer>
-        <Navigation></Navigation>
+        <Navigation />
     </NavigationContainer>
   )
 }
