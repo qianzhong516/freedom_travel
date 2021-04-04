@@ -7,7 +7,7 @@ import BG from '../../assets/images/wave.jpg'
 import SignupForm from '../components/SignupForm'
 import SigninForm from '../components/SigninForm'
 
-const Signup = () => {
+const Signup = ({navigation}) => {
 
     // Styles
     const {form} = styles
@@ -16,11 +16,18 @@ const Signup = () => {
     const toggleForm = () => {
         setShowSigninForm(!showSigninForm)
     }
+
+    const handleSubmit = values => {
+        console.log(values)
+        navigation.navigate('Profile')
+    }
+
     return (
         <AppScreen bgImg={BG}>
             <View style={form}>
                 {!showSigninForm && <SignupForm toggleForm={toggleForm} />}
-                {showSigninForm && <SigninForm toggleForm={toggleForm} />}
+                {showSigninForm && <SigninForm toggleForm={toggleForm} 
+                                               handleSubmit={handleSubmit} />}
             </View>
         </AppScreen>
     )

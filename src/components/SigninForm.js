@@ -7,7 +7,7 @@ import CustomButton from './CustomButton'
 import CustomText from './CustomText'
 import globalStyles from '../utils/globalStyles'
 
-const SigninForm = ({toggleForm}) => {
+const SigninForm = ({toggleForm, handleSubmit}) => {
 
     // Styles
     const {formInner, btn, bottomText, error} = styles
@@ -27,9 +27,6 @@ const SigninForm = ({toggleForm}) => {
         return errors
     }
 
-    const handleSubmit = values => {
-        console.log(values)
-    }
 
     return (
         <Formik initialValues={{
