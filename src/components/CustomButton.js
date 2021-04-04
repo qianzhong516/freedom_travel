@@ -4,13 +4,22 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 
 import globalStyles from '../utils/globalStyles'
 
-const CustomButton = ({title, style, ...props}) => {
+const CustomButton = ({title, style, width, height, ...props}) => {
     
     // Styles
     const {btn, text} = styles
 
+    // Default values
+    width = width ? wp(width) : wp('35%')
+    height = height ? hp(height) : hp('5%')
+
+    const defaultStyles = {
+        width: width,
+        height: height    
+    }
+
     return (
-        <TouchableOpacity style={[btn, style]} {...props}>
+        <TouchableOpacity style={[defaultStyles, btn, style]} {...props}>
             <Text style={text}>{title}</Text>
         </TouchableOpacity>
 
@@ -19,8 +28,6 @@ const CustomButton = ({title, style, ...props}) => {
 
 const styles = StyleSheet.create({
     btn: {
-        width: wp('35%'),
-        height: hp('5%'),
         backgroundColor: globalStyles.primaryColor,
         borderColor: globalStyles.secondaryColor,
         borderWidth: 1,
@@ -30,6 +37,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     text: {
+        fontFamily: "Raleway",
         color: "#FFF"
     }
 })

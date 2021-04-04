@@ -19,8 +19,7 @@ const TabNavigation = () => {
     return (
         <Navigator  initialRouteName="Account"
                     sceneContainerStyle={{ // screen wrapper style
-                        marginTop: StatusBar.currentHeight + 5,
-                        paddingHorizontal: 16
+                        marginTop: StatusBar.currentHeight + 5
                     }}
                     screenOptions={({route}) => ({
                         tabBarIcon: ({ focused, color, size }) => {

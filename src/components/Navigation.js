@@ -2,7 +2,6 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import SignupScreen from '../screens/SignupScreen'
-import ProfileScreen from '../screens/ProfileScreen'
 import TabNavigation from './TabNavigation'
 
 const {Navigator, Screen} = createStackNavigator()
