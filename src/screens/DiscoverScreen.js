@@ -1,11 +1,26 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
+
+import Header from '../components/Header'
+import Banner from '../components/Banner'
+import CityCard from '../components/CityCard'
+import Shanghai from '../../assets/images/shanghai.png'
 
 const DiscoverScreen = () => {
+
+    // Get tab bar's height
+    const tabBarHeight = useBottomTabBarHeight()
+    
     return (
-        <View>
-            <Text>Discover Screen</Text>
-        </View>
+            <ScrollView style={{marginBottom: tabBarHeight}} >
+                <Header />
+                <Banner title="Explore Cities" />
+                <CityCard source={Shanghai} title="Shanghai" />
+                <CityCard source={Shanghai} title="Shanghai" />
+                <CityCard source={Shanghai} title="Shanghai" />
+                <CityCard source={Shanghai} title="Shanghai" />
+            </ScrollView>
     )
 }
 

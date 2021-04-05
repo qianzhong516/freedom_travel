@@ -8,9 +8,10 @@ const AppScreen = ({children, bgImg, innerStyle, ...props}) => {
 
     return (
         <View style={container} {...props}>
-            {bgImg && <ImageBackground source={bgImg} style={img}>
+            {bgImg ? <ImageBackground source={bgImg} style={img}>
                         <View style={{ paddingHorizontal: 16 }}>{children}</View>
-                      </ImageBackground> }
+                      </ImageBackground> : 
+                      <View style={innerStyle}>{children}</View>}
         </View>
     )
 }
