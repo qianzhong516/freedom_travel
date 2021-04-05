@@ -2,7 +2,6 @@ import React from 'react'
 import { View, StyleSheet, Image } from 'react-native'
 
 import Bg from '../../assets/images/profile-bg.jpg'
-import Icon from '../../assets/images/profile-icon.jpg'
 import ProfileIcon from '../components/ProfileIcon'
 import CustomText from '../components/CustomText'
 import CustomButton from '../components/CustomButton'
@@ -16,7 +15,7 @@ const ProfileScreen = () => {
         <View>
             <Image source={Bg} style={bg} />
             <View style={iconContainer}>
-                <ProfileIcon source={Icon} size={86} />
+                <ProfileIcon size={86} />
                 <CustomText style={title}>Janice Zhong</CustomText>
                 <CustomText>qian.zhong1@students.mq.edu.au</CustomText>
             </View>

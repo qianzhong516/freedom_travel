@@ -7,20 +7,26 @@ import Banner from '../components/Banner'
 import CityCard from '../components/CityCard'
 import Shanghai from '../../assets/images/shanghai.png'
 
-const DiscoverScreen = () => {
+const DiscoverScreen = ({ navigation }) => {
 
     // Get tab bar's height
     const tabBarHeight = useBottomTabBarHeight()
+
+    const handlePress = (city) => {
+        navigation.navigate('Single City', {city})
+    }
     
     return (
+        <>
+            <Header />
             <ScrollView style={{marginBottom: tabBarHeight}} >
-                <Header />
                 <Banner title="Explore Cities" />
-                <CityCard source={Shanghai} title="Shanghai" />
-                <CityCard source={Shanghai} title="Shanghai" />
-                <CityCard source={Shanghai} title="Shanghai" />
-                <CityCard source={Shanghai} title="Shanghai" />
+                <CityCard source={Shanghai} title="shanghai" onPress={() => handlePress('shanghai')} />
+                <CityCard source={Shanghai} title="shanghai" />
+                <CityCard source={Shanghai} title="shanghai" />
+                <CityCard source={Shanghai} title="shanghai" />
             </ScrollView>
+        </>
     )
 }
 

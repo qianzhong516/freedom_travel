@@ -1,0 +1,59 @@
+import React from 'react'
+import { View, Text, StyleSheet, ImageBackground } from 'react-native'
+
+import CustomText from './CustomText'
+import ProfileIcon from './ProfileIcon'
+import PlaceTag from './PlaceTag'
+
+const PlaceCard = ({img, tag, title}) => {
+
+    // Styles
+    const {container, imgStyle, icon, infoContainer, titleStyle} = styles
+
+    return (
+        <View style={container}>
+            <ImageBackground source={img} style={imgStyle}>
+                <ProfileIcon size={42} style={icon} />
+            </ImageBackground>
+            <View style={infoContainer}>
+                <CustomText style={titleStyle}>{title}</CustomText>
+                <PlaceTag title={tag} />
+            </View>
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
+        marginBottom: 16
+    },
+    imgStyle: {
+        width: "100%",
+        height: 150,
+        alignItems: "flex-end",
+    },
+    icon: {
+        marginTop: 10,
+        marginRight: 10
+    },
+    infoContainer: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#FFF",
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        borderWidth: 1,
+        borderColor: "#E6E6E6",
+        borderRadius: 8,
+        marginTop: -12
+    },
+    titleStyle: {
+        flexDirection: "column",
+        justifyContent: "center",
+        height: 25,
+        fontSize: 16
+    }
+})
+export default PlaceCard

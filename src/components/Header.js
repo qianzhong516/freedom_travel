@@ -1,14 +1,13 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
 
-import globalStyles from '../utils/globalStyles'
+import RoundIcon from './RoundIcon'
 
 const Header = () => {
 
     // Styles
-    const {iconContainer, header} = styles
+    const {header} = styles
 
     // Access navigation globally
     const navigation = useNavigation()
@@ -19,9 +18,7 @@ const Header = () => {
 
     return (
         <View style={header} >
-            <View style={iconContainer}>
-                <Icon name="arrow-left" size={25} color="#FFF" onPress={handlePress} />
-            </View>
+            <RoundIcon name="arrow-left" size={25} color="#FFF" onPress={handlePress} /> 
         </View>
     )
 }
@@ -32,16 +29,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
         paddingHorizontal: 16,
         height: 46,
-        justifyContent: 'center'
-    },
-    iconContainer: {
-        width: 30,
-        height: 30,
-        backgroundColor: globalStyles.primaryColor,
-        borderWidth: 1,
-        borderColor: globalStyles.secondaryColor,
-        borderRadius: 50,
-        alignItems: 'center',
         justifyContent: 'center'
     }
 })

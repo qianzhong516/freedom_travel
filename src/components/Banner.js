@@ -7,17 +7,17 @@ import CustomText from './CustomText'
 const Banner = ({title}) => {
 
     // Styles
-    const { imgbg, text } = styles
+    const { bg, text } = styles
 
     return (
-        <ImageBackground style={imgbg}>
+        <ImageBackground style={bg}>
             <CustomText style={text}>{title}</CustomText>
         </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
-    imgbg: {
+    bg: {
         width: "100%",
         height: 100,
         backgroundColor: globalStyles.primaryColor,
@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: "#FFF",
-        fontSize: 20
+        fontSize: 20,
+        textTransform: "capitalize"
     }
 })
 export default Banner

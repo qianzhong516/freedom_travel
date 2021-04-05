@@ -1,14 +1,16 @@
 import React from 'react'
 import { Image } from 'react-native'
 
-const ProfileIcon = ({source, size}) => {
+import Icon from '../../assets/images/profile-icon.jpg'
+
+const ProfileIcon = ({size, style}) => {
     return (
-        <Image source={source} 
-               style={{
+        <Image source={Icon} 
+               style={[{
                    width: size,
                    height: size,
                    borderRadius: 50
-               }} />
+               }, style]} />
     )
 }
 export default ProfileIcon

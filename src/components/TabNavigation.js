@@ -1,12 +1,13 @@
 import React from 'react'
-import { StatusBar, StyleSheet } from 'react-native'
+import { StatusBar } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 
+import globalStyles from '../utils/globalStyles'
 import DiscoverScreen from '../screens/DiscoverScreen'
 import TravelScreen from '../screens/TravelScreen'
 import ProfileScreen from '../screens/ProfileScreen'
-import globalStyles from '../utils/globalStyles'
+import SingleCityScreen from '../screens/SingleCityScreen'
 
 const Tab = createBottomTabNavigator()
 const { Navigator, Screen } = Tab
@@ -54,6 +55,11 @@ const TabNavigation = () => {
             <Screen name="Discover" component={DiscoverScreen} />
             <Screen name="My Travel" component={TravelScreen} />
             <Screen name="Account" component={ProfileScreen} />
+            <Screen name="Single City" 
+                    component={SingleCityScreen} 
+                    options={{
+                        tabBarButton: () => null // Do not register extra btn in the bottom tab
+                    }} />
         </Navigator>
     )
 }

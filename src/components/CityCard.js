@@ -1,19 +1,22 @@
 import React from 'react'
 import { View, StyleSheet, ImageBackground } from 'react-native'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import CustomText from './CustomText'
 
-const CityCard = ({ source, title }) => {
+const CityCard = ({ source, title, onPress }) => {
 
     // Styles
     const {outer, inner, text} = styles
 
     return (
-        <ImageBackground source={source} style={outer}>
-            <View style={inner}>
-                <CustomText style={text} >{ title }</CustomText>
-            </View>
-        </ImageBackground>
+        <TouchableWithoutFeedback onPress={onPress} >
+            <ImageBackground source={source} style={outer} >
+                <View style={inner} >
+                    <CustomText style={text}  >{ title }</CustomText>
+                </View>
+            </ImageBackground>
+        </TouchableWithoutFeedback>
     )
 }
 
