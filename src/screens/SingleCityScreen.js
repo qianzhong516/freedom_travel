@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
+import { useNavigation } from '@react-navigation/native'
 
 import Header from '../components/Header'
 import Banner from '../components/Banner'
@@ -14,6 +15,8 @@ const SingleCityScreen = ({route}) => {
     // Styles
     const { iconContainer } = styles
 
+    const navigation = useNavigation()
+
     // Get tab bar's height
     const tabBarHeight = useBottomTabBarHeight()
     // Get params
@@ -21,6 +24,10 @@ const SingleCityScreen = ({route}) => {
 
     const addListing = () => {
         console.log('add listing')
+    }
+    
+    const handlePress = (place) => {
+        navigation.navigate('Single Place', { place })
     }
 
     return (
@@ -30,7 +37,7 @@ const SingleCityScreen = ({route}) => {
                 <Banner title={"Explore "+city} />
                 <View style={{ marginHorizontal: 20 }}>
                     <CategorySlider />
-                    <PlaceCard img={BG} title="Hotel" tag="places to stay" />
+                    <PlaceCard img={BG} title="Hotel" tag="places to stay" onPress={() => handlePress('Hotel')} />
                     <PlaceCard img={BG} title="Museum" tag="places to stay" />
                     <PlaceCard img={BG} title="ThaiBreak" tag="places to stay" />
                 </View>

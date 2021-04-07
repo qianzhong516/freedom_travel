@@ -8,6 +8,8 @@ import DiscoverScreen from '../screens/DiscoverScreen'
 import TravelScreen from '../screens/TravelScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 import SingleCityScreen from '../screens/SingleCityScreen'
+import SinglePlaceScreen from '../screens/SinglePlaceScreen'
+import SinglePhoto from './SinglePhoto'
 
 const Tab = createBottomTabNavigator()
 const { Navigator, Screen } = Tab
@@ -60,6 +62,13 @@ const TabNavigation = () => {
                     options={{
                         tabBarButton: () => null // Do not register extra btn in the bottom tab
                     }} />
+            <Screen name="Single Place" 
+                    component={SinglePlaceScreen} 
+                    options={{ tabBarButton: () => null }} />
+
+            <Screen name="Single Photo" 
+                    component={SinglePhoto} 
+                    options={{ tabBarButton: () => null }} />        
         </Navigator>
     )
 }

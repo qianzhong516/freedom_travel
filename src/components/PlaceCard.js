@@ -1,25 +1,27 @@
 import React from 'react'
-import { View, Text, StyleSheet, ImageBackground } from 'react-native'
+import { View, StyleSheet, ImageBackground, TouchableWithoutFeedback } from 'react-native'
 
 import CustomText from './CustomText'
 import ProfileIcon from './ProfileIcon'
 import PlaceTag from './PlaceTag'
 
-const PlaceCard = ({img, tag, title}) => {
+const PlaceCard = ({img, tag, title, onPress}) => {
 
     // Styles
     const {container, imgStyle, icon, infoContainer, titleStyle} = styles
 
     return (
-        <View style={container}>
-            <ImageBackground source={img} style={imgStyle}>
-                <ProfileIcon size={42} style={icon} />
-            </ImageBackground>
-            <View style={infoContainer}>
-                <CustomText style={titleStyle}>{title}</CustomText>
-                <PlaceTag title={tag} />
+        <TouchableWithoutFeedback onPress={onPress}>
+            <View style={container}>
+                <ImageBackground source={img} style={imgStyle}>
+                    <ProfileIcon size={42} style={icon} />
+                </ImageBackground>
+                <View style={infoContainer}>
+                    <CustomText style={titleStyle}>{title}</CustomText>
+                    <PlaceTag title={tag} />
+                </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     )
 }
 

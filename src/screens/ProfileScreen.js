@@ -21,16 +21,16 @@ const ProfileScreen = () => {
             </View>
             <View style={btnsContainer}>
                 <CustomButton title="Reset Password"
-                              width="50"
-                              height="6"
+                              width="50%"
+                              height="13%"
                               style={btn} />
                 <CustomButton title="Upload Profile Icon"
-                              width="50"
-                              height="6"
+                              width="50%"
+                              height="13%"
                               style={btn} />
                 <CustomButton title="Log Out" 
-                              width="50"
-                              height="6"
+                              width="50%"
+                              height="13%"
                               style={btn} />
             </View>
         </View>
