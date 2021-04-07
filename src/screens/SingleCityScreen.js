@@ -35,7 +35,7 @@ const SingleCityScreen = ({route}) => {
             <Header />
             <ScrollView contentContainerStyle={{paddingBottom: tabBarHeight}} >
                 <Banner title={"Explore "+city} />
-                <View style={{ marginHorizontal: 20 }}>
+                <View style={{ marginHorizontal: 16 }}>
                     <CategorySlider />
                     <PlaceCard img={BG} title="Hotel" tag="places to stay" onPress={() => handlePress('Hotel')} />
                     <PlaceCard img={BG} title="Museum" tag="places to stay" />
