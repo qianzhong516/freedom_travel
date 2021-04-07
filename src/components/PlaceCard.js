@@ -14,7 +14,7 @@ const PlaceCard = ({img, tag, title, onPress}) => {
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={container}>
                 <ImageBackground source={img} style={imgStyle}>
-                    <ProfileIcon size={42} style={icon} />
+                    <ProfileIcon size={42} style={icon} shadowed />
                 </ImageBackground>
                 <View style={infoContainer}>
                     <CustomText style={titleStyle}>{title}</CustomText>

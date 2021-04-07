@@ -23,7 +23,7 @@ const SingleCityScreen = ({route}) => {
     const { city } = route.params
 
     const addListing = () => {
-        console.log('add listing')
+        navigation.navigate('Add Listing')
     }
     
     const handlePress = (place) => {
@@ -46,7 +46,7 @@ const SingleCityScreen = ({route}) => {
                     {bottom: tabBarHeight + 20}, 
                     iconContainer
                   ]}>
-                <RoundIcon name="plus" size={40} onPress={addListing} />
+                <RoundIcon name="plus" size={40} onPress={addListing} shadowed />
             </View>
         </>
     )

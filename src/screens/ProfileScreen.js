@@ -15,7 +15,7 @@ const ProfileScreen = () => {
         <View>
             <Image source={Bg} style={bg} />
             <View style={iconContainer}>
-                <ProfileIcon size={86} />
+                <ProfileIcon size={86} shadowed />
                 <CustomText style={title}>Janice Zhong</CustomText>
                 <CustomText>qian.zhong1@students.mq.edu.au</CustomText>
             </View>

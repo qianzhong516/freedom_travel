@@ -4,14 +4,17 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 
 import globalStyles from '../utils/globalStyles'
 
-const RoundIcon = ({size=25, name, onPress}) => {
+const RoundIcon = ({size=25, name, onPress, shadowed}) => {
 
     // Styles
     const {iconContainer} = styles
-    const defaultStyles = {
+    let defaultStyles = {
         width: size+10,
         height: size+10
     }
+
+    if(shadowed)
+        defaultStyles = {...defaultStyles, ...globalStyles.shadow}
 
     return (
         <View style={[defaultStyles, iconContainer]}>

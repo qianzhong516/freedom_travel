@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
@@ -10,12 +10,12 @@ import BG from '../../assets/images/place.jpg'
 import DropdownSelect from '../components/DropdownSelect/DropdownSelect'
 import globalStyles from '../utils/globalStyles'
 import CustomText from '../components/CustomText'
-import { useState } from 'react'
+import RoundIcon from '../components/RoundIcon'
 
 const TravelScreen = () => {
 
     // Styles 
-    const { filters, filterTitle } = styles
+    const { filters, filterTitle, iconContainer } = styles
 
     const cities = [
         {
@@ -57,6 +57,10 @@ const TravelScreen = () => {
         setCategory(option)
     }
 
+    const addListing = () => {
+        navigation.navigate('Add Listing')
+    }
+
     return (
         <>
             <Header />
@@ -81,6 +85,12 @@ const TravelScreen = () => {
                     <PlaceCard img={BG} title="ThaiBreak" tag="places to stay" />
                 </View>
             </ScrollView>
+            <View style={[
+                    {bottom: tabBarHeight + 20}, 
+                    iconContainer
+                  ]}>
+                <RoundIcon name="plus" size={40} onPress={addListing} shadowed />
+            </View>
         </>
     )
 }
@@ -94,6 +104,10 @@ const styles = StyleSheet.create({
     filterTitle: { 
         marginBottom: 8, 
         marginLeft: 1 
+    },
+    iconContainer: {
+        position: "absolute",
+        right: 20
     }
 })
 export default TravelScreen
