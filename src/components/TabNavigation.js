@@ -10,6 +10,7 @@ import ProfileScreen from '../screens/ProfileScreen'
 import SingleCityScreen from '../screens/SingleCityScreen'
 import SinglePlaceScreen from '../screens/SinglePlaceScreen'
 import SinglePhoto from './SinglePhoto'
+import AddListingScreen from '../screens/AddListingScreen'
 
 const Tab = createBottomTabNavigator()
 const { Navigator, Screen } = Tab
@@ -68,7 +69,11 @@ const TabNavigation = () => {
 
             <Screen name="Single Photo" 
                     component={SinglePhoto} 
-                    options={{ tabBarButton: () => null }} />        
+                    options={{ tabBarButton: () => null }} />
+
+            <Screen name="Add Listing" 
+                    component={AddListingScreen} 
+                    options={{ tabBarButton: () => null }} />    
         </Navigator>
     )
 }

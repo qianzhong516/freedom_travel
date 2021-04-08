@@ -25,7 +25,9 @@ const DropdownSelect = ({defaultOption, value, color, data, handleChange}) => {
         <TouchableOpacity style={{flex: 1}}
                           onPress={toggleModal} >
             <View style={[defaultContainerStyles, container]}>
-                <CustomText style={[{color}, text]}>{value ? value : defaultOption}</CustomText>
+                <CustomText style={[{color}, text]}>
+                    {value ? value : defaultOption}
+                </CustomText>
                 <Icon name="chevron-down" size={25} color={color} />
             </View>
             <DropdownList data={data} 

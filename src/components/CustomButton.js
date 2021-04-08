@@ -19,7 +19,7 @@ const CustomButton = ({title, style, width, height, type, ...props}) => {
     }
 
     const dangerStyles = {
-        backgroundColor: "#ED5454",
+        backgroundColor: globalStyles.dangerColor,
         borderColor: "#FFF"
     }
 
