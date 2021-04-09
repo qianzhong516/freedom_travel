@@ -7,18 +7,22 @@ import CustomText from './CustomText'
 import CustomTextInput from './CustomTextInput'
 import CustomButton from './CustomButton'
 
-const SignupForm = ({toggleForm}) => {
+const SignupForm = ({toggleForm, handleSubmit}) => {
 
     // Styles
     const {formInner, textContainer, text, bottomText, btn, error} = styles
 
     const handleValidation = values => {
-        console.log('validating...', values)
+        console.log('validating...\n', values)
         const errors = {}
-        if(!values.email1) {
-            errors.email1 = "Email is required"
-        }else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email1)){
-            errors.email1 = "Invalid email address"
+        if(!values.email) {
+            errors.email = "Email is required"
+        }else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)){
+            errors.email = "Invalid email address"
+        }
+
+        if(!values.name) {
+            errors.name = "Name is required"
         }
 
         if(!values.password) {
@@ -38,14 +42,11 @@ const SignupForm = ({toggleForm}) => {
         return errors
     }
 
-    const handleSubmit = values => {
-        console.log(values)
-    }
-
     return (
         <Formik 
             initialValues={{
-                email1: '',
+                name: '',
+                email: '',
                 password: '',
                 password2: ''
             }}
@@ -71,11 +72,20 @@ const SignupForm = ({toggleForm}) => {
                                 keyboardType="email-address" 
                                 placeholder="Your email"
                                 placeholderTextColor="#FFF"
-                                onChangeText={handleChange('email1')}
-                                onBlur={() => setFieldTouched('email1')}
-                                value={values.email1}
+                                onChangeText={handleChange('email')}
+                                onBlur={() => setFieldTouched('email')}
+                                value={values.email}
                             />
-                            {touched.email1 && errors.email1 && <CustomText style={error}>{errors.email1}</CustomText>}
+                            {touched.email && errors.email && <CustomText style={error}>{errors.email}</CustomText>}
+                            <CustomTextInput
+                                autoCorrect={false}
+                                placeholder="Your Name"
+                                placeholderTextColor="#FFF"
+                                onChangeText={handleChange('name')}
+                                onBlur={() => setFieldTouched('name')}
+                                value={values.name}
+                            />
+                            {touched.name && errors.name && <CustomText style={error}>{errors.name}</CustomText>}
                             <CustomTextInput
                                 secureTextEntry
                                 placeholder="Your password"

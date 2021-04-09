@@ -20,8 +20,8 @@ const SigninForm = ({toggleForm, handleSubmit}) => {
             errors.email = "Invalid email address"
         }
 
-        if(!values.psw) {
-            errors.psw = "Password is required"
+        if(!values.password) {
+            errors.password = "Password is required"
         }
 
         return errors
@@ -31,7 +31,7 @@ const SigninForm = ({toggleForm, handleSubmit}) => {
     return (
         <Formik initialValues={{
             email: '',
-            psw: '',
+            password: '',
         }}
         validate={handleValidation}
         validateOnChange={false}
@@ -59,11 +59,11 @@ const SigninForm = ({toggleForm, handleSubmit}) => {
                         secureTextEntry
                         placeholder="Your password"
                         placeholderTextColor="#FFF"
-                        onChangeText={handleChange('psw')}
-                        onBlur={() => setFieldTouched('psw')}
-                        value={values.psw}
+                        onChangeText={handleChange('password')}
+                        onBlur={() => setFieldTouched('password')}
+                        value={values.password}
                     />
-                    {touched.psw && errors.psw && <CustomText style={error}>{errors.psw}</CustomText>}
+                    {touched.password && errors.password && <CustomText style={error}>{errors.password}</CustomText>}
                     <CustomButton 
                         onPress={handleSubmit}
                         title="Confirm"

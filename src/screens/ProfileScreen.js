@@ -1,15 +1,27 @@
 import React from 'react'
 import { View, StyleSheet, Image } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 import Bg from '../../assets/images/profile-bg.jpg'
 import ProfileIcon from '../components/ProfileIcon'
 import CustomText from '../components/CustomText'
 import CustomButton from '../components/CustomButton'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const ProfileScreen = () => {
 
     // Styles
     const { bg, iconContainer, btnsContainer, title, btn } = styles
+    const navigation = useNavigation()
+
+    const handleLogout = async () => {
+        try {
+            await AsyncStorage.removeItem('token')
+            navigation.navigate('Signup')
+        }catch(err) {
+            console.log(err)
+        }
+    }
 
     return (
         <View>
@@ -31,7 +43,8 @@ const ProfileScreen = () => {
                 <CustomButton title="Log Out" 
                               width="50%"
                               height="13%"
-                              style={btn} />
+                              style={btn}
+                              onPress={handleLogout} />
             </View>
         </View>
     )
