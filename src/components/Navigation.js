@@ -20,7 +20,7 @@ const Navigation = () => {
                 const token = await AsyncStorage.getItem('token')
                 console.log('token in local storage: ', token)
                 // set global authorization header 
-                axios.defaults.headers['Authorization'] = 'Bearer '+token
+                axios.defaults.headers['Authorization'] = token
                 setAuth(token)
             }catch(err) {
                 console.log(err)

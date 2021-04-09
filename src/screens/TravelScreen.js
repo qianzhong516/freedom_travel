@@ -58,7 +58,7 @@ const TravelScreen = () => {
     }
 
     const addListing = () => {
-        navigation.navigate('Add Listing')
+        navigation.navigate('Add Listing', {city: ""})
     }
 
     return (

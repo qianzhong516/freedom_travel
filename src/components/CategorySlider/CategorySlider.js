@@ -45,7 +45,6 @@ const CategorySlider = () => {
                     svgIcon
                 }
             })
-            console.log({updatedCat})
             setCategories(updatedCat)
         }).catch(err => {
             console.log(err)

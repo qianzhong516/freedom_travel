@@ -16,9 +16,9 @@ const DropdownList = ({data, visible, closeModal, handleChange}) => {
     const { centerView, modalView, itemContainer, itemText } = styles
 
     const renderItem = ({ item, idx }) => {
-        return (<TouchableOpacity onPress={() => {handleChange(item.option); closeModal()}}>
+        return (<TouchableOpacity onPress={() => {handleChange(item.name); closeModal()}}>
                     <View key={idx} style={itemContainer}>
-                        <CustomText style={itemText}>{item.option}</CustomText>
+                        <CustomText style={itemText}>{item.name}</CustomText>
                     </View>
                 </TouchableOpacity>)
     }   
@@ -28,7 +28,7 @@ const DropdownList = ({data, visible, closeModal, handleChange}) => {
                 <View style={centerView}>
                     <View style={modalView}>
                         <FlatList data={data}
-                                    keyExtractor={item => item.id}
+                                    keyExtractor={item => item._id}
                                     renderItem={renderItem} />
                         <CustomButton title="Close" onPress={closeModal} >Close</CustomButton>
                     </View>

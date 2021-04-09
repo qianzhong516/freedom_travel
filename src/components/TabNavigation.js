@@ -11,6 +11,7 @@ import SingleCityScreen from '../screens/SingleCityScreen'
 import SinglePlaceScreen from '../screens/SinglePlaceScreen'
 import SinglePhoto from './SinglePhoto'
 import AddListingScreen from '../screens/AddListingScreen'
+import LocalImageGallery from './LocalImageGallery'
 
 const Tab = createBottomTabNavigator()
 const { Navigator, Screen } = Tab
@@ -73,7 +74,10 @@ const TabNavigation = () => {
 
             <Screen name="Add Listing" 
                     component={AddListingScreen} 
-                    options={{ tabBarButton: () => null }} />    
+                    options={{ tabBarButton: () => null }} />  
+            <Screen name="Local Gallery"
+                    component={LocalImageGallery}
+                    options={{ tabBarButton: () => null }} />  
         </Navigator>
     )
 }

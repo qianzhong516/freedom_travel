@@ -21,6 +21,7 @@ const ProfileScreen = () => {
 
     useEffect(() => {
         axios.get('/users/current-user').then((res) => {
+            console.log('/users/current-user', res.data)
             setUser(res.data)
         }).catch(err => {
             console.log(err)

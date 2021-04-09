@@ -23,7 +23,7 @@ const SingleCityScreen = ({route}) => {
     const { city } = route.params
 
     const addListing = () => {
-        navigation.navigate('Add Listing')
+        navigation.navigate('Add Listing', { city })
     }
     
     const handlePress = (place) => {
