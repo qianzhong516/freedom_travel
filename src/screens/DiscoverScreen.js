@@ -1,19 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, ScrollView } from 'react-native'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 
 import Header from '../components/Header'
 import Banner from '../components/Banner'
 import CityCard from '../components/CityCard'
-import Shanghai from '../../assets/images/shanghai.png'
+import axios from '../config/axios'
 
 const DiscoverScreen = ({ navigation }) => {
 
     // Get tab bar's height
     const tabBarHeight = useBottomTabBarHeight()
+    const [cities, setCities] = useState([])
 
-    const handlePress = (city) => {
-        navigation.navigate('Single City', {city})
+    useEffect(() => {
+        axios.get('/cities').then((res) => {
+            setCities(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [])
+
+    const handlePress = (name) => {
+        navigation.navigate('Single City', {city: name})
     }
     
     return (
@@ -21,10 +30,10 @@ const DiscoverScreen = ({ navigation }) => {
             <Header />
             <ScrollView style={{marginBottom: tabBarHeight}} >
                 <Banner title="Explore Cities" />
-                <CityCard source={Shanghai} title="shanghai" onPress={() => handlePress('shanghai')} />
-                <CityCard source={Shanghai} title="shanghai" />
-                <CityCard source={Shanghai} title="shanghai" />
-                <CityCard source={Shanghai} title="shanghai" />
+                {cities.map(city => <CityCard key={city._id}
+                                              source={{uri: city.uri}} 
+                                              title={city.name} 
+                                              onPress={() => handlePress(city.name)} />)}
             </ScrollView>
         </>
     )
