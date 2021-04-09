@@ -1,21 +1,57 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 
 import CategoryTag from './CategoryTag'
 import SvgIcon from '../SvgIcon'
+import axios from '../../config/axios'
 
 const CategorySlider = () => {
 
     // Styles
     const { container } = styles 
-
     const slider = useRef()
     const [x, setX] = useState(0)
     const [contentWidth, setContentWidth] = useState(0)
     const [sliderWidth, setSliderWidth] = useState(0)
     const interval = 100
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        axios.get('/categories').then((res) => {
+            const results = res.data
+            const updatedCat = results.map(cat => {
+                let svgIcon 
+                switch (cat.name) {
+                    case "restaurants":
+                        svgIcon = <SvgIcon name="restaurant" size={35} />
+                        break;
+                    case "places to visit":
+                        svgIcon = <SvgIcon name="building" size={35} />
+                        break;
+                    case "places to stay":
+                        svgIcon = <SvgIcon name="home" size={35} />
+                        break;
+                    case "KTVs":
+                        svgIcon = <SvgIcon name="ktv" size={35} />
+                        break;
+                    default:
+                        break;
+                }
+                return {
+                    id: cat._id,
+                    name: cat.name,
+                    svgIcon
+                }
+            })
+            console.log({updatedCat})
+            setCategories(updatedCat)
+        }).catch(err => {
+            console.log(err)
+            alert('Something went wrong.')
+        })
+    }, [])
     
     // Slider controls
     const slideLeft = () => {
@@ -68,10 +104,9 @@ const CategorySlider = () => {
                         onScroll={getSliderDisplayWidth}
                         onContentSizeChange={getSliderContentWidth}
                         showsHorizontalScrollIndicator={false} >
-                <CategoryTag title="restaurants" icon={<SvgIcon name="restaurant" size={35} />} />
-                <CategoryTag title="places to visit" icon={<SvgIcon name="building" size={35} />} />
-                <CategoryTag title="places to stay" icon={<SvgIcon name="home" size={35} />} />
-                <CategoryTag title="places to stay" icon={<SvgIcon name="home" size={35} />} />
+                {categories.map(cat => <CategoryTag key={cat.id}
+                                                    title={cat.name} 
+                                                    icon={cat.svgIcon} />)}
             </ScrollView>
             <TouchableOpacity onPress={slideRight}>
                 <Icon name="chevron-right" size={30} color="#808080" />
