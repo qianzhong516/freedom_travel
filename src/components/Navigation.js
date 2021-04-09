@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import SignupScreen from '../screens/SignupScreen'
 import TabNavigation from './TabNavigation'
 import { useEffect } from 'react'
+import axios from '../config/axios'
 
 const {Navigator, Screen} = createStackNavigator()
 
@@ -18,6 +19,8 @@ const Navigation = () => {
             try{ 
                 const token = await AsyncStorage.getItem('token')
                 console.log('token in local storage: ', token)
+                // set global authorization header 
+                axios.defaults.headers['Authorization'] = 'Bearer '+token
                 setAuth(token)
             }catch(err) {
                 console.log(err)

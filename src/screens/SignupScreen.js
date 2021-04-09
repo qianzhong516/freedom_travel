@@ -45,9 +45,9 @@ const Signup = ({navigation}) => {
             if(res.status === 200) {
                 const token = res.data
                 try {
-                    await AsyncStorage.setItem('token', token)
+                    await AsyncStorage.setItem('token', 'Bearer '+token)
                     // set global authorization header 
-                    axios.defaults.headers['Authorization'] = token
+                    axios.defaults.headers['Authorization'] = 'Bearer '+token
                     actions.resetForm()
                     navigation.navigate('Profile')
                 }catch(err) {

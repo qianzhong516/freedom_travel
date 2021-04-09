@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
@@ -7,12 +7,25 @@ import ProfileIcon from '../components/ProfileIcon'
 import CustomText from '../components/CustomText'
 import CustomButton from '../components/CustomButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from '../config/axios'
 
 const ProfileScreen = () => {
 
     // Styles
     const { bg, iconContainer, btnsContainer, title, btn } = styles
     const navigation = useNavigation()
+    const [user, setUser] = useState({
+        name: "",
+        email: ""
+    })
+
+    useEffect(() => {
+        axios.get('/users/current-user').then((res) => {
+            setUser(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [])
 
     const handleLogout = async () => {
         try {
@@ -28,8 +41,8 @@ const ProfileScreen = () => {
             <Image source={Bg} style={bg} />
             <View style={iconContainer}>
                 <ProfileIcon size={86} shadowed />
-                <CustomText style={title}>Janice Zhong</CustomText>
-                <CustomText>qian.zhong1@students.mq.edu.au</CustomText>
+                <CustomText style={title}>{user.name}</CustomText>
+                <CustomText>{user.email}</CustomText>
             </View>
             <View style={btnsContainer}>
                 <CustomButton title="Reset Password"
