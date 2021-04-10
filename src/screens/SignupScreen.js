@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -14,6 +14,22 @@ const Signup = ({navigation}) => {
     // Styles
     const {form} = styles
     const [showSigninForm, setShowSigninForm] = useState(false)
+
+    // check user auth
+    useEffect(() => {
+        async function getToken() {
+            try{ 
+                const token = await AsyncStorage.getItem('token')
+                console.log('token in local storage: ', token)
+                // set global authorization header 
+                axios.defaults.headers['Authorization'] = token
+                navigation.navigate('Profile')
+            }catch(err) {
+                console.log(err)
+            }
+        }
+        getToken()
+    }, [])
 
     const toggleForm = () => {
         setShowSigninForm(!showSigninForm)

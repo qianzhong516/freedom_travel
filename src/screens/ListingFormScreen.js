@@ -123,7 +123,7 @@ const ListingFormScreen = ({navigation, route}) => {
 
         // if the image's url starts with `http://`, delete it from the database,
         // so it doesn't need to be included in the editing data.
-        if(uri.startsWith("http://")) {
+        if(uri.startsWith("https://") || uri.startsWith("http://")) {
             const body = {
                 placeId: route.params.placeId,
                 filename: uri.split('/').pop()
