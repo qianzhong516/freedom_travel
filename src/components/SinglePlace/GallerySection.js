@@ -5,11 +5,12 @@ import { useNavigation } from '@react-navigation/native'
 import Header from './Header'
 import globalStyles from '../../utils/globalStyles'
 import GalleryScroll from '../GalleryScroll'
+import CustomText from '../CustomText'
 
 const GallerySection = ({images}) => {
 
     // Styles
-    const { container } = styles
+    const { container, title } = styles
 
     const navigation = useNavigation()
 
@@ -27,7 +28,7 @@ const GallerySection = ({images}) => {
 
     return (
         <View style={container}>
-            <Header title="Gallery" btn={btn}/>
+            <CustomText style={title}>Gallery</CustomText>
             <GalleryScroll images={images} thumbSize={70} selectImg={handleSelectImg} />
         </View>
     )
@@ -41,6 +42,11 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: globalStyles.textColor,
         textAlign: "justify"
+    },
+    title: {
+        fontSize: 16,
+        color: globalStyles.textColor,
+        marginBottom: 5
     }
 })
 export default GallerySection

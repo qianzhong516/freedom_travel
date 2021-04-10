@@ -1,19 +1,19 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import globalStyles from '../../utils/globalStyles'
 import CustomText from '../CustomText'
 
-const CategoryTag = ({title, icon}) => {
+const CategoryTag = ({title, icon, onPress}) => {
 
     // Styles
     const { container, text } = styles 
 
     return (
-        <View style={container}>
+        <TouchableOpacity style={container} onPress={() => onPress(title)}>
             {icon}
             <CustomText style={text}>{title}</CustomText>
-        </View>
+        </TouchableOpacity>
     )
 }
 

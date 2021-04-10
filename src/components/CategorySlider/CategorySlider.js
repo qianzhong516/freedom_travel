@@ -7,7 +7,7 @@ import CategoryTag from './CategoryTag'
 import SvgIcon from '../SvgIcon'
 import axios from '../../config/axios'
 
-const CategorySlider = () => {
+const CategorySlider = ({onPress}) => {
 
     // Styles
     const { container } = styles 
@@ -105,7 +105,8 @@ const CategorySlider = () => {
                         showsHorizontalScrollIndicator={false} >
                 {categories.map(cat => <CategoryTag key={cat.id}
                                                     title={cat.name} 
-                                                    icon={cat.svgIcon} />)}
+                                                    icon={cat.svgIcon}
+                                                    onPress={onPress} />)}
             </ScrollView>
             <TouchableOpacity onPress={slideRight}>
                 <Icon name="chevron-right" size={30} color="#808080" />

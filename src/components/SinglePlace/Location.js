@@ -2,21 +2,18 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import MapView from 'react-native-maps'
 
+import globalStyles from '../../utils/globalStyles'
 import CustomText from '../CustomText'
-import Header from './Header'
+
 
 const Location = ({address}) => {
 
     // Styles
-    const { container, map, textContainer } = styles
+    const { container, map, textContainer, title } = styles
 
-    const btn = {
-        icon: "lead-pencil",
-        title: "edit"
-    }
     return (
         <View style={container}>
-            <Header title="Location" btn={btn}/>
+            <CustomText style={title}>Location</CustomText>
             <View style={textContainer}>
                 <CustomText>Address: {address}</CustomText>
             </View>
@@ -42,6 +39,11 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         marginBottom: 12
+    },
+    title: {
+        fontSize: 16,
+        color: globalStyles.textColor,
+        marginBottom: 5
     }
 })
 export default Location

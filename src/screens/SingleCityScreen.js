@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, ScrollView } from 'react-native'
+import { View, StyleSheet, ScrollView, RefreshControl } from 'react-native'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 
 import Header from '../components/Header'
@@ -16,17 +16,26 @@ const SingleCityScreen = ({route, navigation}) => {
     const { iconContainer } = styles
     // Get tab bar's height
     const tabBarHeight = useBottomTabBarHeight()
-    const { city } = route.params
-    // const [city, setCity] = useState(route.params.city)
-    const [places, setPlaces] = useState([])
+    // const { city } = route.params
+    const [state, setState] = useState({
+        city: null,
+        places: [],
+        allPlaces: [],
+        refreshing: false
+    })
 
     useEffect(() => {
         // get all places of this city
         axios.get('/places/city', { 
-            params: {city: city}  
+            params: {city: route.params.city}  
         }).then(res => {
-            console.log(res.data)
-            setPlaces(res.data)
+            console.log('get all places: ', res.data)
+            setState({
+                ...state,
+                city: route.params.city,
+                places: res.data,
+                allPlaces: res.data
+            })
         }).catch(err => {
             console.log(err)
             alert('Something went wrong.')
@@ -36,25 +45,59 @@ const SingleCityScreen = ({route, navigation}) => {
     const addListing = () => {
         navigation.navigate('Listing Form', {
             title: "Add New Listing",
-            city,
+            city: state.city,
             placeId: null,
             selectedImgs: []
         })
     }
-    
+
+    const handleCategoryFilter = (category) => {
+        const results = state.allPlaces.filter(place => place.category.name === category)
+        setState({
+            ...state,
+            places: results
+        })
+    }
+
     const handlePress = (placeId) => {
         navigation.navigate('Single Place', { placeId })
+    }
+
+    const handleRefresh = () => {
+        setState({
+            ...state,
+            refreshing: true
+        })
+        axios.get('/places/city', { 
+            params: {city: state.city}  
+        }).then(res => {
+            setState({
+                ...state,
+                places: res.data,
+                allPlaces: res.data,
+                refreshing: false
+            })
+        }).catch(err => {
+            console.log(err)
+            alert('Something went wrong.')
+        })
     }
 
     return (
         <>
             <Header />
-            <ScrollView contentContainerStyle={{paddingBottom: tabBarHeight}} >
-                <Banner title={"Explore "+city} />
+            <ScrollView contentContainerStyle={{paddingBottom: tabBarHeight}}
+                        refreshControl={
+                            <RefreshControl
+                              refreshing={state.refreshing}
+                              onRefresh={handleRefresh}
+                            />
+                          } >
+                <Banner title={"Explore "+state.city} />
                 <View style={{ marginHorizontal: 16 }}>
-                    <CategorySlider />
-                    {places.length ? places.map(place => 
-                        <PlaceCard key={place._id} img={{uri: place.photos[0]}} title={place.name} tag="places to stay" onPress={() => handlePress(place._id)} />):
+                    <CategorySlider onPress={handleCategoryFilter} />
+                    {state.places.length ? state.places.map(place => 
+                        <PlaceCard key={place._id} img={{uri: place.photos[0]}} title={place.name} tag={place.category.name} onPress={() => handlePress(place._id)} />):
                         <CustomText>No places are found.</CustomText>}
                 </View>
             </ScrollView>
