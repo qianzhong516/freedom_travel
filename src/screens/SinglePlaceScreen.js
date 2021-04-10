@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
 
 import Banner from '../components/Banner'
@@ -6,11 +6,13 @@ import Header from '../components/Header'
 import TabContent from '../components/Tabs/TabContent'
 import Tabs from '../components/Tabs/Tabs'
 import Contact from '../components/SinglePlace/Contact'
+import axios from '../config/axios'
 
-const SinglePlaceScreen = ({route}) => {
+const SinglePlaceScreen = ({navigation, route}) => {
     const s = useRef()
 
-    const { place } = route.params
+    const { placeId } = route.params
+    const [placeInfo, setPlaceInfo] = useState()
     const [tabs, setTabs] = useState([
         {
             id: 0,
@@ -38,15 +40,42 @@ const SinglePlaceScreen = ({route}) => {
             s.current.scrollToEnd({animated: true})
     }
 
+    useEffect(() => {
+        axios.get('/places', {
+            params: { id: placeId }
+        }).then(res => {
+            console.log('place info: ', res.data)
+            setPlaceInfo(res.data)
+        }).catch(err => {
+            console.log(err)
+            alert('Something went wrong.')
+        })
+    }, [route.params])
+
+    const handleDeleteListing = (placeId) => {
+        axios.post(`/places/delete-place/${placeId}`).then(res => {
+            alert(res.data)
+            navigation.goBack()
+        }).catch(err => {
+            console.log(err)
+            alert('Something went wrong.')
+        })
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <Header />
             <ScrollView ref={s} showsHorizontalScrollIndicator={false} >
-                <Banner title={place} />
+                <Banner title={placeInfo && placeInfo.name} />
                 <Tabs tabs={tabs} toggleTab={toggleTab} />
-                <TabContent />
+                <TabContent placeInfo={placeInfo} 
+                            deleteListing={() => handleDeleteListing(placeId)} />
             </ScrollView>
-            <Contact />
+            <Contact contactInfo={placeInfo && {
+                                                    website: placeInfo.website, 
+                                                    phone: placeInfo.phone, 
+                                                    email: placeInfo.email 
+                                                }} />
         </View>
     )
 }

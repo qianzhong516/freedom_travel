@@ -6,7 +6,7 @@ import Location from '../SinglePlace/Location'
 import GallerySection from '../SinglePlace/GallerySection'
 import CustomButton from '../CustomButton'
 
-const TabContent = () => {
+const TabContent = ({placeInfo, deleteListing}) => {
 
     const data = [
         {
@@ -15,7 +15,7 @@ const TabContent = () => {
         },
         {
             id: "1",
-            title: "Location"            
+            title: "Location"
         },
         {
             id: "2",
@@ -27,13 +27,13 @@ const TabContent = () => {
     const renderItem = ({item}) => {
         switch (item.title) {
             case "Introduction":  
-                return( <Introduction content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." />)
+                return( <Introduction content={placeInfo && placeInfo.introduction} />)
 
             case "Location":
-                return <Location address="123 Liverpool Rd, Ashfield, NSW 2131" />
+                return <Location address={placeInfo && placeInfo.address} />
 
             case "Gallery":
-                return <GallerySection />
+                return <GallerySection images={placeInfo ? placeInfo.photos : []} />
 
             default:
                 return null
@@ -48,7 +48,8 @@ const TabContent = () => {
                     keyExtractor={(item) => item.id}
                     ListFooterComponent={() => <CustomButton width="100%"
                                                              type="danger" 
-                                                             title="DELETE THIS LISTING" />}
+                                                             title="DELETE THIS LISTING"
+                                                             onPress={() => deleteListing(placeInfo._id)} />}
             />
         </View>
     )

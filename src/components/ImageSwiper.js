@@ -14,7 +14,7 @@ const ImageSwiper = ({images, currentIndex}) => {
     const [idx, setIdx] = useState(currentIndex)
 
     const renderItem = ({item}) => {
-        return <Image source={{uri: item.uri}} style={styles.img} />
+        return <Image source={{uri: item}} style={styles.img} />
     }
 
     useEffect(() => {
@@ -48,7 +48,7 @@ const ImageSwiper = ({images, currentIndex}) => {
                     onSwipeLeft={handlePrev}
                     onSwipeRight={handleNext} >
                     <FlatList data={images} 
-                            keyExtractor={(item) => item.id}
+                            keyExtractor={(item, index) => index.toString()}
                             renderItem={renderItem}
                             horizontal
                             ref={swiper}

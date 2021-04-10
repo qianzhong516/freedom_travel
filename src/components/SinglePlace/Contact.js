@@ -13,7 +13,7 @@ const Contact = ({contactInfo}) => {
     const { container, head, content, text } = styles
 
     const [show, setShow] = useState(false)
-    // const { web, phone, email } = contactInfo
+    const { web, phone, email } = contactInfo
 
     const toggleContactInfo = () => {
         setShow(!show)
@@ -32,8 +32,8 @@ const Contact = ({contactInfo}) => {
                 </TouchableWithoutFeedback>
                 <View style={[content, {display: show ? "flex":"none"}]}>
                     <ContactIcon icon="laptop" title="Go to website" />
-                    <ContactIcon icon="phone" title="02 9111 222" />
-                    <ContactIcon icon="email-outline" title="info@example.com.au" />
+                    <ContactIcon icon="phone" title={phone} />
+                    <ContactIcon icon="email-outline" title={email} />
                 </View>
             </GestureRecognizer>
         </View>
