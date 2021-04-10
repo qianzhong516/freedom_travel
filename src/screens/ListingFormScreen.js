@@ -48,6 +48,7 @@ const ListingFormScreen = ({navigation, route}) => {
         }).catch(err => {
             alert(err.response.data)
         })
+
     }, [])
 
     useEffect(() => {
@@ -81,9 +82,9 @@ const ListingFormScreen = ({navigation, route}) => {
                 console.log(err)
                 alert('Something went wrong.')
             }) 
-        }else {
+        }else{
             const city = route.params.city
-            setFormFields({ 
+            setFormFields({
                 city,
                 category: "",
                 name: "",
@@ -95,7 +96,6 @@ const ListingFormScreen = ({navigation, route}) => {
                 photos: []
             })
         }
-
         // **important** reset selectedImgs
         setSelectedImgs([])
     }, [route.params.placeId])
@@ -176,6 +176,17 @@ const ListingFormScreen = ({navigation, route}) => {
         if(route.params.title === "Add New Listing") {
             axios.post('/places/add-place', body).then(res => {
                 if(res.status === 200) {
+                    setFormFields({
+                        city: "",
+                        category: "",
+                        name: "",
+                        introduction: "",
+                        phone: "",
+                        email: "",
+                        website: "",
+                        address: "",
+                        photos: []
+                    })
                     navigation.navigate('Single City', {city: formFields.city})
                 }
             })

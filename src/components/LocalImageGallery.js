@@ -2,11 +2,14 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { AssetsSelector } from 'expo-images-picker'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 
 import globalStyles from '../utils/globalStyles'
 import CustomText from './CustomText'
 
 const LocalImageGallery = ({navigation}) => {
+
+    const tabBarHeight = useBottomTabBarHeight()
 
     const onDone = (assets) => {
 
@@ -18,6 +21,7 @@ const LocalImageGallery = ({navigation}) => {
     }
 
     return (
+        <>
         <AssetsSelector
             options={{
                 manipulate: {
@@ -60,7 +64,9 @@ const LocalImageGallery = ({navigation}) => {
                     Component: () => <CustomText>No Assets are found</CustomText>,
                 },
             }}
-        />  
+        />
+        <View style={{marginBottom: tabBarHeight}}></View>  
+        </>
     )
 }
 
