@@ -9,11 +9,12 @@ import CustomText from './CustomText'
 const LocalImageGallery = ({navigation}) => {
 
     const onDone = (assets) => {
+
         const uris = []
         assets.forEach(asset => {
-            uris.push({uri: asset.uri})
+            uris.push(asset.uri)
         })
-        navigation.navigate('Add Listing', {selectedImgs: uris})
+        navigation.navigate('Listing Form', {selectedImgs: uris})
     }
 
     return (

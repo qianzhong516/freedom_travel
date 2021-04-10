@@ -55,11 +55,35 @@ const SinglePlaceScreen = ({navigation, route}) => {
     const handleDeleteListing = (placeId) => {
         axios.post(`/places/delete-place/${placeId}`).then(res => {
             alert(res.data)
-            navigation.goBack()
+            navigation.navigate("My Travel")
         }).catch(err => {
             console.log(err)
             alert('Something went wrong.')
         })
+    }
+
+    const handleEditListing = (placeId) => {
+        navigation.navigate('Listing Form', {
+            title: "Edit Listing",
+            // city: res.data.city.name,
+            // editingData: res.data,
+            placeId,
+            selectedImgs: []
+        })
+       /*  axios.get('/places', {
+            params: { id: placeId }
+        }).then(res => {
+            console.log('place info: ', res.data)
+            navigation.navigate('Listing Form', {
+                title: "Edit Listing",
+                city: res.data.city.name,
+                editingData: res.data,
+                selectedImgs: []
+            })
+        }).catch(err => {
+            console.log(err)
+            alert('Something went wrong.')
+        }) */
     }
 
     return (
@@ -69,7 +93,8 @@ const SinglePlaceScreen = ({navigation, route}) => {
                 <Banner title={placeInfo && placeInfo.name} />
                 <Tabs tabs={tabs} toggleTab={toggleTab} />
                 <TabContent placeInfo={placeInfo} 
-                            deleteListing={() => handleDeleteListing(placeId)} />
+                            deleteListing={() => handleDeleteListing(placeId)}
+                            EditListing={() => handleEditListing(placeId)} />
             </ScrollView>
             <Contact contactInfo={placeInfo && {
                                                     website: placeInfo.website, 

@@ -13,13 +13,16 @@ import SectionHeader from '../components/SinglePlace/Header'
 import globalStyles from '../utils/globalStyles'
 import axios from '../config/axios'
 
-const AddListingScreen = ({navigation, route}) => {
+const ListingFormScreen = ({navigation, route}) => {
+    // route: { title, placeId, city, selectedImgs }
 
     // Styles 
     const { container, formGroup, titleStyle, btns, gallery, photoView, controlTxt, photoImg, photoControl } = styles
     const tabBarHeight = useBottomTabBarHeight()
     const [cities, setCities] = useState([])
     const [categories, setCategories] = useState([])
+    // selected images from local gallery
+    const [selectedImgs, setSelectedImgs] = useState([]) 
     const [formFields, setFormFields] = useState({
         city: "",
         category: "",
@@ -29,29 +32,9 @@ const AddListingScreen = ({navigation, route}) => {
         email: "",
         website: "",
         address: "",
-        images: [] // [{uri: ""}, ...]
+        photos: [] // [uri, ...]
     })
 
-    useEffect(() => {
-        const city = route.params.city
-        // add selected images to the list
-        let updatedImages = []
-        if(route.params.selectedImgs) {
-            const selectedImgs = route.params.selectedImgs
-            if(selectedImgs.length) {
-                updatedImages = formFields.images.concat(selectedImgs)
-                console.log({updatedImages})
-            }
-        }
-
-        setFormFields({
-            ...formFields,
-            images: updatedImages,
-            city
-        })
-
-    }, [route.params])
- 
     useEffect(() => {
         // Get all cities
         axios.get('/cities').then(res => {
@@ -66,6 +49,56 @@ const AddListingScreen = ({navigation, route}) => {
             alert(err.response.data)
         })
     }, [])
+
+    useEffect(() => {
+        // load selected photos to the existing list if there is any
+        if(route.params.selectedImgs.length) {
+            let _selectedImgs = route.params.selectedImgs
+            let existingImgs = formFields.photos
+            setFormFields({
+                ...formFields,
+                photos: existingImgs.concat(_selectedImgs)
+            }) 
+            setSelectedImgs(_selectedImgs)
+        }
+    }, [route.params.selectedImgs])
+ 
+    useEffect(() => {
+        if(route.params.placeId) {
+            axios.get('/places', {
+                params: { id: route.params.placeId }
+            }).then(res => {
+                // console.log('place info: ', res.data)
+                const place = res.data
+                setFormFields({
+                    ...formFields,
+                    ...place,
+                    _id: route.params.placeId,
+                    city: place.city.name,
+                    category: place.category.name
+                })
+            }).catch(err => {
+                console.log(err)
+                alert('Something went wrong.')
+            }) 
+        }else {
+            const city = route.params.city
+            setFormFields({ 
+                city,
+                category: "",
+                name: "",
+                introduction: "",
+                phone: "",
+                email: "",
+                website: "",
+                address: "",
+                photos: []
+            })
+        }
+
+        // **important** reset selectedImgs
+        setSelectedImgs([])
+    }, [route.params.placeId])
 
     const btn = {
         icon: "arrow-up",
@@ -83,60 +116,99 @@ const AddListingScreen = ({navigation, route}) => {
         })
     }
 
-    const handleDelete = (idx) => {
-        const updated = formFields.images.filter((img, i) => i !== idx)
-        setFormFields({
-            ...formFields,
-            images: updated
-        })
+    const handleDelete = (uri) => {
+        // remove the image from the rendering list
+        const updated = formFields.photos.filter((item) => item !== uri)
+        console.log('remove the image from the rendering list', updated)
+
+        // if the image's url starts with `http://`, delete it from the database,
+        // so it doesn't need to be included in the editing data.
+        if(uri.startsWith("http://")) {
+            const body = {
+                placeId: route.params.placeId,
+                filename: uri.split('/').pop()
+            }
+            axios.post('/places/delete-img', body).then(res => {
+                if(res.status === 200) {
+                    alert('The image has been deleted!')
+                    setFormFields({
+                        ...formFields,
+                        photos: updated
+                    })
+                }
+            })
+        }else {
+            setFormFields({
+                ...formFields,
+                photos: updated
+            })
+        }
     }
 
     const handleCancel = () => {
-        route.params.selectedImgs = []
-        navigation.goBack()
+        navigation.navigate('Single Place', {placeId: route.params.placeId})
     }
 
     const handleSubmit = async () => {
-
+        // upload locally selected images
         // covert img uris to base64 strings and add filename
-        const images = await Promise.all(formFields.images.map(async(img) => {
-            const filename = img.uri.split('/').pop()
-            const base64 = await FileSystem.readAsStringAsync(
-                img.uri,
-                {encoding: "base64"}
-            )
-            return {filename, base64}
-        }))
+        let photos = []
+        if(selectedImgs.length) {
+            photos = await Promise.all(selectedImgs.map(async(uri) => {
+                const filename = uri.split('/').pop()
+                const base64 = await FileSystem.readAsStringAsync(
+                    uri,
+                    {encoding: "base64"}
+                )
+                return {filename, base64}
+            }))
+        }
         
         let _formFields = {
             ...formFields,
-            images
+            // **important** _id for updating the place from db 
+            _id: route.params.placeId, 
+            photos
         }
         const body = {place: _formFields}
-        axios.post('/places/add-place', body).then(res => {
-            if(res.status === 200) {
-                route.params.selectedImgs = []
-                setFormFields({
-                    ...formFields,
-                    city: "",
-                    category: "",
-                    name: "",
-                    introduction: "",
-                    phone: "",
-                    email: "",
-                    website: "",
-                    address: "",
-                    images: []
-                })
-                navigation.navigate('Single City', {city: formFields.city})
-            }
-        })
+        console.log({body})
+
+        if(route.params.title === "Add New Listing") {
+            axios.post('/places/add-place', body).then(res => {
+                if(res.status === 200) {
+                    navigation.navigate('Single City', {city: formFields.city})
+                }
+            })
+        }else if(route.params.title === "Edit Listing"){
+            axios.post('/places/edit-place', body).then(res => {
+                if(res.status === 200) {
+                    alert('This listing has been edited!')
+                    console.log('update after editing: ', res.data)
+                    const updated = {
+                        city: res.data.city,
+                        category: res.data.category,
+                        name: res.data.name,
+                        introduction: res.data.introduction,
+                        phone: res.data.phone,
+                        email: res.data.email,
+                        website: res.data.website,
+                        address: res.data.address,
+                        photos: res.data.photos
+                    }
+                    setFormFields(updated)
+                }
+            }).catch(err => {
+                console.log(err)
+                alert('Update listing has failed.')
+            })
+        }
+   
     }
 
-    const SinglePhoto = ({img, idx}) => (
+    const SinglePhoto = ({img, uri}) => (
         <View style={photoView}>
-            <Image source={{uri: img.uri}} style={photoImg} />
-            <TouchableOpacity style={photoControl} onPress={() => handleDelete(idx)}>
+            <Image source={img} style={photoImg} />
+            <TouchableOpacity style={photoControl} onPress={() => handleDelete(uri)}>
                 <CustomText style={controlTxt}>X</CustomText>
             </TouchableOpacity>
         </View>
@@ -145,7 +217,7 @@ const AddListingScreen = ({navigation, route}) => {
     return (
         <>
             <Header />
-            <Banner title="Add New Listing" />
+            <Banner title={route.params.title} />
             <ScrollView style={container}>
                 <View style={formGroup}>
                     <CustomText style={titleStyle}>City</CustomText>
@@ -212,8 +284,8 @@ const AddListingScreen = ({navigation, route}) => {
                 <View style={formGroup}>
                     <SectionHeader title="Gallery" btn={btn} onPress={openLocalGallery} />
                     <View style={gallery}>
-                        {formFields.images.length ? 
-                        formFields.images.map((img, i) => <SinglePhoto key={i} img={img} idx={i} />) :
+                        {formFields.photos.length ? 
+                        formFields.photos.map((uri, i) => <SinglePhoto key={i} img={{uri}} uri={uri} />) :
                         <CustomText style={{ color: globalStyles.textColor }}>
                             There is no image in this gallery yet...
                         </CustomText>}
@@ -280,4 +352,4 @@ const styles = StyleSheet.create({
         resizeMode: "cover"
     }
 })
-export default AddListingScreen
+export default ListingFormScreen

@@ -6,7 +6,7 @@ import Location from '../SinglePlace/Location'
 import GallerySection from '../SinglePlace/GallerySection'
 import CustomButton from '../CustomButton'
 
-const TabContent = ({placeInfo, deleteListing}) => {
+const TabContent = ({placeInfo, deleteListing, EditListing}) => {
 
     const data = [
         {
@@ -46,10 +46,16 @@ const TabContent = ({placeInfo, deleteListing}) => {
                     data={data} 
                     renderItem={renderItem}
                     keyExtractor={(item) => item.id}
-                    ListFooterComponent={() => <CustomButton width="100%"
+                    ListFooterComponent={() =>  <>
+                                                    <CustomButton width="100%"
+                                                             style={{ marginBottom: 8 }}
+                                                             title="EDIT THIS LISTING"
+                                                             onPress={() => EditListing(placeInfo._id)}/>
+                                                    <CustomButton width="100%"
                                                              type="danger" 
                                                              title="DELETE THIS LISTING"
-                                                             onPress={() => deleteListing(placeInfo._id)} />}
+                                                             onPress={() => deleteListing(placeInfo._id)}/>
+                                                </>}
             />
         </View>
     )

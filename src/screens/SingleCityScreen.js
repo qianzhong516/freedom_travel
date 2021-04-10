@@ -34,7 +34,12 @@ const SingleCityScreen = ({route, navigation}) => {
     }, [route.params])
 
     const addListing = () => {
-        navigation.navigate('Add Listing', { city })
+        navigation.navigate('Listing Form', {
+            title: "Add New Listing",
+            city,
+            placeId: null,
+            selectedImgs: []
+        })
     }
     
     const handlePress = (placeId) => {
