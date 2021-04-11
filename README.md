@@ -32,12 +32,12 @@ Please run the app via the demo link. If you would like to run it locally, pleas
 
 * I have made a NodeJS backend API service for the app and host it on https://freedom-travel-backend.herokuapp.com/.
 * The app stores and fetches data from a separated backend service via `axios`.
-* The app stores image data statically on the remote server. However, due to the empheral feature of the server in use, newly uploaded images will get deleted until the next cycle when the dyno restarts.
+* The app stores image data statically on the remote server. However, due to the ephemeral feature of the server, newly uploaded images will be deleted in the next cycle when the dyno restarts.
 * The app has a splash screen as an image. 
 * The app loads custom font style that is not included in the expo package when the app starts.
 * `useEffect` has been used multiple times in the app to initialize the data to display on the screen.
 * Hide bottom tab button for specific screens via screen options: `tabBarButton: () => null`. 
-* Handle form validation manually by passing a validation handler to a form’s validate property via `Formik`. This provides more flexibility on form validation, instead of integrating with Yup.
+* Handle form validation manually by passing a validation handler to a form’s validate property via `Formik`. This provides more flexibility on form validation, instead of integrating with `Yup`.
 * Authenticates user’s login via JWT token and saves the token in mobile’s local storage, so it keeps the User’s login state next time he/she accesses the app. This is achieved via `AsyncStorage`.
 * After User has logged in, the app prevents User from going back to login screen by pressing back button on their phone. This is achieved by popping up an alert box asking User if he/she wants to stay on the screen or logout. 
 * Custom SVG icon components on Single City screen. This is achieved by `react-native-svg` package.
