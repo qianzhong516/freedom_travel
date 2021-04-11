@@ -20,6 +20,10 @@ Place (User.fk, City.fk, Category.fk, name, introduction, address, photos, phone
 
 User (email, password, name)
 
+**Side Note:**
+
+Please run the app via the demo link. If you would like to run it locally, please make sure the local environment mode is switched to production.
+
 # Extra features
 
 * I have made a NodeJS backend API service for the app and host it on https://freedom-travel-backend.herokuapp.com/.
