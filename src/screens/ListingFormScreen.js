@@ -179,38 +179,18 @@ const ListingFormScreen = ({navigation, route}) => {
         if(route.params.title === "Add New Listing") {
             axios.post('/places/add-place', body).then(res => {
                 if(res.status === 200) {
-                    setFormFields({
-                        city: "",
-                        category: "",
-                        name: "",
-                        introduction: "",
-                        phone: "",
-                        email: "",
-                        website: "",
-                        address: "",
-                        photos: []
-                    })
-                    // navigation.navigate('Single City', {city: formFields.city})
-                    navigation.navigate('My Travel')
+                    resetFormFields()
+                    alert('New listing has been added!')
+                    navigation.navigate('Single Place', {placeId: res.data._id})
                 }
             })
         }else if(route.params.title === "Edit Listing"){
             axios.post('/places/edit-place', body).then(res => {
                 if(res.status === 200) {
-                    alert('This listing has been edited!')
+                    resetFormFields()
                     console.log('update after editing: ', res.data)
-                    const updated = {
-                        city: res.data.city,
-                        category: res.data.category,
-                        name: res.data.name,
-                        introduction: res.data.introduction,
-                        phone: res.data.phone,
-                        email: res.data.email,
-                        website: res.data.website,
-                        address: res.data.address,
-                        photos: res.data.photos
-                    }
-                    setFormFields(updated)
+                    alert('This listing has been edited!')
+                    navigation.navigate('Single Place', {placeId: res.data._id})
                 }
             }).catch(err => {
                 console.log(err)
@@ -218,6 +198,20 @@ const ListingFormScreen = ({navigation, route}) => {
             })
         }
    
+    }
+
+    const resetFormFields = () => {
+        setFormFields({
+            city: "",
+            category: "",
+            name: "",
+            introduction: "",
+            phone: "",
+            email: "",
+            website: "",
+            address: "",
+            photos: []
+        })
     }
 
     const SinglePhoto = ({img, uri}) => (
