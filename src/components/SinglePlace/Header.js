@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
         marginBottom: 8
     },
     titleStyle: {
+        fontFamily: "RalewayBold",
         fontSize: 16,
         color: globalStyles.textColor
     },

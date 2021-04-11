@@ -4,6 +4,7 @@ import { View, StyleSheet, ImageBackground, TouchableWithoutFeedback } from 'rea
 import CustomText from './CustomText'
 import ProfileIcon from './ProfileIcon'
 import PlaceTag from './PlaceTag'
+import globalStyles from '../utils/globalStyles'
 
 const PlaceCard = ({img, tag, title, onPress}) => {
 
@@ -55,7 +56,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         height: 25,
-        fontSize: 16
+        fontSize: 16,
+        color: globalStyles.textColor
     }
 })
 export default PlaceCard

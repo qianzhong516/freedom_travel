@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { View, StyleSheet, Image, Alert } from 'react-native'
 
 import Bg from '../../assets/images/profile-bg.jpg'
 import ProfileIcon from '../components/ProfileIcon'
@@ -9,11 +8,10 @@ import CustomButton from '../components/CustomButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from '../config/axios'
 
-const ProfileScreen = () => {
+const ProfileScreen = ({navigation}) => {
 
     // Styles
     const { bg, iconContainer, btnsContainer, title, btn } = styles
-    const navigation = useNavigation()
     const [user, setUser] = useState({
         name: "",
         email: ""
@@ -25,6 +23,21 @@ const ProfileScreen = () => {
             setUser(res.data)
         }).catch(err => {
             console.log(err)
+        })
+
+        navigation.addListener('beforeRemove', (e) => {
+            e.preventDefault()
+            Alert.alert('Alert', 'Do you want to logout?', [
+                { text: "Stay", onPress: () => {}, style: "cancel" },
+                { 
+                  text: "Log Out", 
+                  onPress: async () => {
+                      await AsyncStorage.removeItem('token')
+                      navigation.dispatch(e.data.action)
+                  },
+                  style: "destructive",
+                },
+            ])
         })
     }, [])
 

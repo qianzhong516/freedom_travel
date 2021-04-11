@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
         textAlign: "justify"
     },
     title: {
+        fontFamily: "RalewayBold",
         fontSize: 16,
         color: globalStyles.textColor,
         marginBottom: 5

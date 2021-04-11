@@ -15,7 +15,9 @@ const Location = ({address}) => {
         <View style={container}>
             <CustomText style={title}>Location</CustomText>
             <View style={textContainer}>
-                <CustomText>Address: {address}</CustomText>
+                <CustomText style={{ fontFamily: "RalewayBold", 
+                                     color: globalStyles.textColor }}>Address: </CustomText>
+                <CustomText style={{ color: globalStyles.textColor }}>{address}</CustomText>
             </View>
             <MapView
                 initialRegion={{
@@ -38,9 +40,11 @@ const styles = StyleSheet.create({
         height: 150
     },
     textContainer: {
+        flexDirection: "row",
         marginBottom: 12
     },
     title: {
+        fontFamily: "RalewayBold",
         fontSize: 16,
         color: globalStyles.textColor,
         marginBottom: 5

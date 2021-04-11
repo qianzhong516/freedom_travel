@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     text: {
+        fontFamily: "RalewayBold",
         color: "#FFF",
         fontSize: 24,
         textTransform: "uppercase"

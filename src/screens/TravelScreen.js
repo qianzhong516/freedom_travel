@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { View, StyleSheet, ScrollView, RefreshControl } from 'react-native'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 
@@ -10,7 +10,6 @@ import globalStyles from '../utils/globalStyles'
 import CustomText from '../components/CustomText'
 import RoundIcon from '../components/RoundIcon'
 import axios from '../config/axios'
-import { useCallback } from 'react'
 
 const TravelScreen = ({navigation}) => {
 
@@ -91,6 +90,8 @@ const TravelScreen = ({navigation}) => {
         setRefresh(true)
         // Get all travel options created by the current user
         axios.post('/places/byuser').then(res => {
+            setCity()
+            setCategory()
             setTravels(res.data)
             setAllTravels(res.data)
             setRefresh(false)
@@ -146,6 +147,8 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     filterTitle: { 
+        fontFamily: "RalewayBold",
+        color: globalStyles.textColor,
         marginBottom: 8, 
         marginLeft: 1 
     },

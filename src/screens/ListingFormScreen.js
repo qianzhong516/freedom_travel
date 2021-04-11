@@ -50,6 +50,22 @@ const ListingFormScreen = ({navigation, route}) => {
         })
 
     }, [])
+    
+    useEffect(() => {
+        // reset the form if add/edit mode switches
+        const city = route.params.city
+        setFormFields({
+            city,
+            category: "",
+            name: "",
+            introduction: "",
+            phone: "",
+            email: "",
+            website: "",
+            address: "",
+            photos: []
+        })
+    }, [route.params.title])
 
     useEffect(() => {
         // load selected photos to the existing list if there is any
@@ -82,19 +98,6 @@ const ListingFormScreen = ({navigation, route}) => {
                 console.log(err)
                 alert('Something went wrong.')
             }) 
-        }else{
-            const city = route.params.city
-            setFormFields({
-                city,
-                category: "",
-                name: "",
-                introduction: "",
-                phone: "",
-                email: "",
-                website: "",
-                address: "",
-                photos: []
-            })
         }
         // **important** reset selectedImgs
         setSelectedImgs([])
@@ -187,7 +190,8 @@ const ListingFormScreen = ({navigation, route}) => {
                         address: "",
                         photos: []
                     })
-                    navigation.navigate('Single City', {city: formFields.city})
+                    // navigation.navigate('Single City', {city: formFields.city})
+                    navigation.navigate('My Travel')
                 }
             })
         }else if(route.params.title === "Edit Listing"){
@@ -324,6 +328,8 @@ const styles = StyleSheet.create({
         marginBottom: 16
     },
     titleStyle: {
+        fontFamily: "RalewayBold",
+        color: globalStyles.textColor,
         fontSize: 16,
         marginBottom: 8
     },

@@ -65,25 +65,9 @@ const SinglePlaceScreen = ({navigation, route}) => {
     const handleEditListing = (placeId) => {
         navigation.navigate('Listing Form', {
             title: "Edit Listing",
-            // city: res.data.city.name,
-            // editingData: res.data,
             placeId,
             selectedImgs: []
         })
-       /*  axios.get('/places', {
-            params: { id: placeId }
-        }).then(res => {
-            console.log('place info: ', res.data)
-            navigation.navigate('Listing Form', {
-                title: "Edit Listing",
-                city: res.data.city.name,
-                editingData: res.data,
-                selectedImgs: []
-            })
-        }).catch(err => {
-            console.log(err)
-            alert('Something went wrong.')
-        }) */
     }
 
     return (

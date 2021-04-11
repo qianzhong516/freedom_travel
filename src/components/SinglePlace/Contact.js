@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
         paddingVertical: 16
     },
     text: {
+        fontFamily: "RalewayBold",
         fontSize: 16,
         color: globalStyles.textColor
     }

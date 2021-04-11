@@ -8,7 +8,8 @@ import Navigation from './src/components/Navigation'
 export default function App() {
   // Load custom font
   const [fontsLoaded] = useFonts({
-      'Raleway': require('./assets/fonts/Raleway-Regular.ttf')
+      'Raleway': require('./assets/fonts/Raleway-Regular.ttf'),
+      'RalewayBold': require('./assets/fonts/Raleway-Bold.ttf')
   })
   if(!fontsLoaded) {
     return <AppLoading />

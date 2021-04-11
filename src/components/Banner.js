@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
         marginBottom: 16
     },
     text: {
+        fontFamily: "RalewayBold",
         color: "#FFF",
         fontSize: 20,
         textTransform: "capitalize"
