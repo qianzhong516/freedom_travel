@@ -79,7 +79,7 @@ const SignupForm = ({toggleForm, handleSubmit}) => {
                             {touched.email && errors.email && <CustomText style={error}>{errors.email}</CustomText>}
                             <CustomTextInput
                                 autoCorrect={false}
-                                placeholder="Your Name"
+                                placeholder="Your name"
                                 placeholderTextColor="#FFF"
                                 onChangeText={handleChange('name')}
                                 onBlur={() => setFieldTouched('name')}

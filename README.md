@@ -24,7 +24,7 @@ User (email, password, name)
 
 * I have made a NodeJS backend API service for the app and host it on https://freedom-travel-backend.herokuapp.com/.
 * The app stores and fetches data from a separated backend service via `axios`.
-* The app stores image data on statically on the remote server. However, due to the empheral feature of the server in use, newly uploaded images will get deleted until the next cycle when the dyno restarts.
+* The app stores image data statically on the remote server. However, due to the empheral feature of the server in use, newly uploaded images will get deleted until the next cycle when the dyno restarts.
 * The app has a splash screen as an image. 
 * The app loads custom font style that is not included in the expo package when the app starts.
 * `useEffect` has been used multiple times in the app to initialize the data to display on the screen.
