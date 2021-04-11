@@ -2,6 +2,10 @@
 
 **Demo link:** https://expo.io/@urmajesty516/projects/freedom_travel
 
+**Wireframe:** https://www.figma.com/file/bdwUrot2T35P6WiTiPh3OZ/Wireframes?node-id=0%3A1
+
+**Mockups:** https://www.figma.com/file/xFbaDlYsEdGzDphYK6W6sX/Mockups?node-id=0%3A1
+
 **Platform:** Android. 
 
 **Phone model used for developing:** Google Pixel 5.
