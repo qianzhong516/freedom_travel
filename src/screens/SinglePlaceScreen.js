@@ -66,7 +66,8 @@ const SinglePlaceScreen = ({navigation, route}) => {
         navigation.navigate('Listing Form', {
             title: "Edit Listing",
             placeId,
-            selectedImgs: []
+            selectedImgs: [],
+            key: Date.now()
         })
     }
 

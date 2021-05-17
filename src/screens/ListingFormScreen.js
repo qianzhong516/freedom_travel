@@ -50,22 +50,6 @@ const ListingFormScreen = ({navigation, route}) => {
         })
 
     }, [])
-    
-    useEffect(() => {
-        // reset the form if add/edit mode switches
-        const city = route.params.city
-        setFormFields({
-            city,
-            category: "",
-            name: "",
-            introduction: "",
-            phone: "",
-            email: "",
-            website: "",
-            address: "",
-            photos: []
-        })
-    }, [route.params.title])
 
     useEffect(() => {
         // load selected photos to the existing list if there is any
@@ -79,9 +63,9 @@ const ListingFormScreen = ({navigation, route}) => {
             setSelectedImgs(_selectedImgs)
         }
     }, [route.params.selectedImgs])
- 
+
     useEffect(() => {
-        if(route.params.placeId) {
+        if(route.params.title === "Edit Listing") {
             axios.get('/places', {
                 params: { id: route.params.placeId }
             }).then(res => {
@@ -98,10 +82,25 @@ const ListingFormScreen = ({navigation, route}) => {
                 console.log(err)
                 alert('Something went wrong.')
             }) 
+        }else if(route.params.title === "Add New Listing"){
+            // reset the form if add/edit mode switches
+            const city = route.params.city
+            setFormFields({
+                city,
+                category: "",
+                name: "",
+                introduction: "",
+                phone: "",
+                email: "",
+                website: "",
+                address: "",
+                photos: []
+            })
         }
         // **important** reset selectedImgs
         setSelectedImgs([])
-    }, [route.params.placeId])
+
+    }, [route.params.key])
 
     const btn = {
         icon: "arrow-up",
@@ -181,7 +180,12 @@ const ListingFormScreen = ({navigation, route}) => {
                 if(res.status === 200) {
                     resetFormFields()
                     alert('New listing has been added!')
-                    navigation.navigate('Single Place', {placeId: res.data._id})
+                    navigation.navigate('Single Place', {
+                        placeId: res.data._id, 
+                        title: undefined,
+                        city: undefined,
+                        selectedImgs: undefined
+                    }) 
                 }
             })
         }else if(route.params.title === "Edit Listing"){
@@ -190,7 +194,12 @@ const ListingFormScreen = ({navigation, route}) => {
                     resetFormFields()
                     console.log('update after editing: ', res.data)
                     alert('This listing has been edited!')
-                    navigation.navigate('Single Place', {placeId: res.data._id})
+                    navigation.navigate('Single Place', {
+                        placeId: res.data._id, 
+                        title: undefined,
+                        city: undefined,
+                        selectedImgs: undefined
+                    }) 
                 }
             }).catch(err => {
                 console.log(err)

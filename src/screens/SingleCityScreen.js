@@ -44,11 +44,12 @@ const SingleCityScreen = ({route, navigation}) => {
 
     const addListing = () => {
         navigation.navigate('Listing Form', {
+            placeId: null,
             title: "Add New Listing",
             city: state.city,
-            placeId: null,
-            selectedImgs: []
-        })
+            selectedImgs: [],
+            key: Date.now()
+        }) 
     }
 
     const handleCategoryFilter = (category) => {

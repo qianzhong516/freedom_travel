@@ -80,10 +80,12 @@ const TravelScreen = ({navigation}) => {
 
     const addListing = () => {
         navigation.navigate('Listing Form', {
+            placeId: null,
             title: "Add New Listing", 
             city: "", 
-            selectedImgs: []
-        })
+            selectedImgs: [],
+            key: Date.now()
+        }) 
     }
 
     const handleRefresh = useCallback(() => {
